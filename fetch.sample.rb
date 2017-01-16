@@ -1,38 +1,16 @@
 require 'date'
-require 'feedjira'
+require 'fomo_feed'
 
 # ==========================================================================
-# Edit the filename and feeds to your liking.
+# Usage: just pass in the filename and list of sources! Valid source classes
+#        are currently only FomoFeed::RedditSource
 # ==========================================================================
 
-FILENAME = "./#{Time.now.strftime('%y%m-%d')}.html"
-HACKERNEWS = {name: "Hacker News", url: "https://news.ycombinator.com/rss"}
-REDDIT_FRONT = {name: "Reddit Frontpage", url: "http://www.reddit.com/.rss"}
-REDDIT_MULTI = {name: "Reddit Subreddits", url: "http://www.reddit.com/r/worldnews+frogs+LearnUselessTalents.rss"}
+hackernews = FomoFeed::Source.new(name: "Hacker News", url: "https://news.ycombinator.com/rss")
+reddit_front = FomoFeed::RedditSource.new(name: "Reddit Frontpage", url: "http://www.reddit.com/.json")
+reddit_multi = FomoFeed::RedditSource.new(name: "Reddit Subreddits", url: "http://www.reddit.com/r/worldnews+frogs+LearnUselessTalents.json")
+sources = [reddit_front, reddit_multi]
 
-sources = [HACKERNEWS, REDDIT_FRONT, REDDIT_MULTI]
+filename = "./#{Time.now.strftime('%y%m-%d')}.html"
 
-# ==========================================================================
-# No need to edit below this line (unless you want to change the HTML output)
-# ==========================================================================
-
-sources.each do |source|
-  puts "Fetching feed for #{source[:name]}"
-  source[:feed] = Feedjira::Feed.fetch_and_parse(source[:url]).entries
-end
-
-puts "Writing file..."
-
-File.open(FILENAME, 'w') do |f|
-  f.write "<html><body>"
-  sources.each do |source|
-    f.write "<h1>#{source[:name]}</h1><ul>"
-    source[:feed].each do |entry|
-      f.write "<li><a href=\"#{entry.url}\">#{entry.title}</a></li>"
-    end
-    f.write "</ul>"
-  end
-  f.write "</body></html>"
-end
-
-puts "Done!"
+FomoFeed.file_from_sources(filename, sources)
