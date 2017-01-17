@@ -6,9 +6,9 @@ require 'fomo_feed'
 #        are currently only FomoFeed::RedditSource
 # ==========================================================================
 
-hackernews = FomoFeed::Source.new(name: "Hacker News", url: "https://news.ycombinator.com/rss")
-reddit_front = FomoFeed::RedditSource.new(name: "Reddit Frontpage", url: "http://www.reddit.com/.json")
-reddit_multi = FomoFeed::RedditSource.new(name: "Reddit Subreddits", url: "http://www.reddit.com/r/worldnews+frogs+LearnUselessTalents.json")
+# hackernews = FomoFeed::Source.new(name: "Hacker News", url: "https://news.ycombinator.com/rss")
+reddit_front = FomoFeed::RedditSource.new
+reddit_multi = FomoFeed::RedditSource.new("worldnews", "frogs", "LearnUselessTalents")
 sources = [reddit_front, reddit_multi]
 
 filename = "./#{Time.now.strftime('%y%m-%d')}.html"
