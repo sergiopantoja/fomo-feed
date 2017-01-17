@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'fomo_feed'
-  s.version     = '0.1.0'
-  s.date        = '2017-01-16'
+  s.version     = '0.2.0'
+  s.date        = '2017-01-17'
   s.summary     = "FOMO Feed"
   s.description = "Consume news intelligently. FOMO lets you batch your input so you can supercharge your output."
   s.authors     = ["Sergio Pantoja"]
