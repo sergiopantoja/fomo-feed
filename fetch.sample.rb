@@ -6,10 +6,10 @@ require 'fomo_feed'
 #        are currently only FomoFeed::RedditSource
 # ==========================================================================
 
-# hackernews = FomoFeed::Source.new(name: "Hacker News", url: "https://news.ycombinator.com/rss")
+hackernews = FomoFeed::HackerNewsSource.new
 reddit_front = FomoFeed::RedditSource.new
 reddit_multi = FomoFeed::RedditSource.new("worldnews", "frogs", "LearnUselessTalents")
-sources = [reddit_front, reddit_multi]
+sources = [hackernews, reddit_front, reddit_multi]
 
 filename = "./#{Time.now.strftime('%y%m-%d')}.html"
 

@@ -24,3 +24,4 @@ end
 require 'fomo_feed/story'
 require 'fomo_feed/source'
 require 'fomo_feed/reddit_source'
+require 'fomo_feed/hacker_news_source'

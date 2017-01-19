@@ -10,7 +10,8 @@ Gem::Specification.new do |s|
                     "lib/fomo_feed.rb",
                     "lib/fomo_feed/story.rb",
                     "lib/fomo_feed/source.rb",
-                    "lib/fomo_feed/reddit_source.rb"
+                    "lib/fomo_feed/reddit_source.rb",
+                    "lib/fomo_feed/hacker_news_source.rb"
                   ]
   s.homepage    = 'http://rubygems.org/gems/fomo_feed'
   s.license     = 'MIT'
