@@ -1,16 +1,34 @@
 require 'date'
-require 'fomo_feed'
+require 'fomo-fetch'
 
 # ==========================================================================
-# Usage: just pass in the filename and list of sources! Valid source classes
-#        are currently only FomoFeed::RedditSource
+# Usage: just pass in the filename and list of sources! Valid source methods
+#        are currently #hackernews and #reddit
 # ==========================================================================
 
-hackernews = FomoFeed::HackerNewsSource.new
-reddit_front = FomoFeed::RedditSource.new
-reddit_multi = FomoFeed::RedditSource.new("worldnews", "frogs", "LearnUselessTalents")
-sources = [hackernews, reddit_front, reddit_multi]
+sources = [
+  {name: "Hacker News",  stories: Fomo::Fetch.hackernews},
+  {name: "Reddit Front", stories: Fomo::Fetch.reddit},
+  {name: "Reddit Multi", stories: Fomo::Fetch.reddit("worldnews", "frogs", "LearnUselessTalents")}
+]
 
 filename = "./#{Time.now.strftime('%y%m-%d')}.html"
 
-FomoFeed.file_from_sources(filename, sources)
+puts "Creating file..."
+
+File.open(filename, 'w') do |f|
+  f.write "<html><body>"
+  sources.each do |source|
+    puts "Fetching feed for #{source[:name]}"
+    f.write "<h1>#{source[:name]}</h1><ul>"
+
+    source[:stories].each do |story|
+      f.write "<li><a href=\"#{story.url}\">#{story.title}</a></li>"
+    end
+
+    f.write "</ul>"
+  end
+  f.write "</body></html>"
+end
+
+puts "Done!"
