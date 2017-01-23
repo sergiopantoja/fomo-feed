@@ -6,6 +6,8 @@ require 'fomo-fetch'
 #        are currently #hackernews and #reddit
 # ==========================================================================
 
+puts "Fetching feeds..."
+
 sources = [
   {name: "Hacker News",  stories: Fomo::Fetch.hackernews},
   {name: "Reddit Front", stories: Fomo::Fetch.reddit},
@@ -19,7 +21,7 @@ puts "Creating file..."
 File.open(filename, 'w') do |f|
   f.write "<html><body>"
   sources.each do |source|
-    puts "Fetching feed for #{source[:name]}"
+    puts "Writing feed for #{source[:name]}"
     f.write "<h1>#{source[:name]}</h1><ul>"
 
     source[:stories].each do |story|
